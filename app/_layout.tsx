@@ -12,7 +12,7 @@ export default function RootLayout() {
         },
       }}
     >
-      <Stack.Screen name="index" />
+      <Stack.Screen name="home/index" />
       <Stack.Screen name="add-task" />
     </Stack>
   );
