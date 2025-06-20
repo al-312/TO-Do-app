@@ -1,8 +1,8 @@
 import PrimaryButton from "@/components/primaty-button";
+import { theme } from "@/constants/theme";
 import { router } from "expo-router";
 import React from "react";
-import { SafeAreaView, Text, View } from "react-native";
-import { style } from "./style";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 function Home() {
   return (
@@ -11,7 +11,7 @@ function Home() {
         <Text style={style.title}>Tasks</Text>
         <PrimaryButton
           handlePress={() => {
-            router.push("/login");
+            router.push("/settings");
           }}
           text="Back"
         />
@@ -21,3 +21,18 @@ function Home() {
 }
 
 export default Home;
+
+const style = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    backgroundColor: theme.colors.primary,
+  },
+  container: {
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  title: {
+    color: theme.colors.textPrimary,
+    fontSize: theme.textSizes.header,
+  },
+});

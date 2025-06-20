@@ -11,7 +11,7 @@ const LoginScreen = () => {
   const router = useRouter();
 
   const handleLogin = () => {
-    router.replace("/home");
+    router.replace("/");
   };
 
   return (

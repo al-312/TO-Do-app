@@ -1571,12 +1571,31 @@
     use-latest-callback "^0.2.3"
     use-sync-external-store "^1.5.0"
 
+"@react-navigation/drawer@^7.4.4":
+  version "7.4.4"
+  resolved "https://registry.yarnpkg.com/@react-navigation/drawer/-/drawer-7.4.4.tgz#fc0cd118719e0a473cf84c778b2e3768797068cc"
+  integrity sha512-B5gD2inC1tQccdaK+f90xyqiO8dJ6O6EV4yclpWlu3Fr+GD+TRzXm0SUppToMnnZJv+VrtW1GElvVdeDziiTsg==
+  dependencies:
+    "@react-navigation/elements" "^2.4.6"
+    color "^4.2.3"
+    react-native-drawer-layout "^4.1.11"
+    use-latest-callback "^0.2.4"
+
 "@react-navigation/elements@^2.3.8", "@react-navigation/elements@^2.4.1":
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@react-navigation/elements/-/elements-2.4.1.tgz#c43777d9be06dbf506a9842cd41e3482a49ac5e9"
   integrity sha512-L10zs15NSgx+Msd6UmUfPx8+bEe/KnhcNFKsoPbz0U49sJdU6qogcbNAPi1RUs4UDtfnnubUhbXZxfaYJTCwCA==
   dependencies:
     color "^4.2.3"
+
+"@react-navigation/elements@^2.4.6":
+  version "2.4.6"
+  resolved "https://registry.yarnpkg.com/@react-navigation/elements/-/elements-2.4.6.tgz#2ca302b524909d24cd1f8b6a9813a49e54ff87a7"
+  integrity sha512-G9J9BjR3YNrPbWtjLKBY2pxN9rNYM6Xxyr/LTWK+Ke6UIk2UA4pWFw52WhenWyZw+zFk2wyj1G+VS7UNO40NKQ==
+  dependencies:
+    color "^4.2.3"
+    use-latest-callback "^0.2.4"
+    use-sync-external-store "^1.5.0"
 
 "@react-navigation/native-stack@^7.3.10":
   version "7.3.12"
@@ -5635,6 +5654,13 @@ react-is@^19.1.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-19.1.0.tgz#805bce321546b7e14c084989c77022351bbdd11b"
   integrity sha512-Oe56aUPnkHyyDxxkvqtd7KkdQP5uIUfHxd5XTb3wE9d/kRnZLmKbDB0GWk919tdQ+mxxPtG6EAs6RMT6i1qtHg==
 
+react-native-drawer-layout@^4.1.11:
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/react-native-drawer-layout/-/react-native-drawer-layout-4.1.11.tgz#f41d95b26863f63c5d3c16161d02dc8de0ef270c"
+  integrity sha512-31gilubSKPLToy31/bb0hhgOOenHYJq4JC7g/JkIEqBqSWzoCgiOlccDHlBRG+MV37UtXZnJN2spj3VusdCd4A==
+  dependencies:
+    use-latest-callback "^0.2.4"
+
 react-native-edge-to-edge@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/react-native-edge-to-edge/-/react-native-edge-to-edge-1.6.0.tgz#2ba63b941704a7f713e298185c26cde4d9e4b973"
@@ -6816,6 +6842,11 @@ use-latest-callback@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/use-latest-callback/-/use-latest-callback-0.2.3.tgz#2d644d3063040b9bc2d4c55bb525a13ae3de9e16"
   integrity sha512-7vI3fBuyRcP91pazVboc4qu+6ZqM8izPWX9k7cRnT8hbD5svslcknsh3S9BUhaK11OmgTV4oWZZVSeQAiV53SQ==
+
+use-latest-callback@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/use-latest-callback/-/use-latest-callback-0.2.4.tgz#35c0f028f85a3f4cf025b06011110e87cc18f57e"
+  integrity sha512-LS2s2n1usUUnDq4oVh1ca6JFX9uSqUncTfAm44WMg0v6TxL7POUTk1B044NH8TeLkFbNajIsgDHcgNpNzZucdg==
 
 use-sync-external-store@^1.5.0:
   version "1.5.0"
