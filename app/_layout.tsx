@@ -1,5 +1,10 @@
-import { Stack } from "expo-router";
+import { USER_ID } from "@/constants/variables";
+import { getData } from "@/utils/storage-manager";
+import { router, Stack } from "expo-router";
+
 export default function Layout() {
+  const userId = getData(USER_ID);
+  if (!userId) router.replace("/");
   return (
     <>
       <Stack

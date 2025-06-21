@@ -1,6 +1,11 @@
 import PrimaryButton from "@/components/primaty-button";
+import { auth } from "@/config/firebase";
 import { theme } from "@/constants/theme";
+import { USER_ID } from "@/constants/variables";
+import { storeData } from "@/utils/storage-manager";
+import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -13,12 +18,26 @@ import {
 } from "react-native";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("abc@gmai.com");
-  const [password, setPassword] = useState("test@123");
+  const [email, setEmail] = useState<string>("test@mail.com");
+  const [password, setPassword] = useState<string>("test@123");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const router = useRouter();
 
   const handleLogin = () => {
-    router.replace("/(tab)");
+    console.log(email, password);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        storeData(USER_ID, user.uid);
+
+        router.replace("/(tab)");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.error(errorCode, errorMessage);
+      });
   };
 
   return (
@@ -45,14 +64,23 @@ const LoginScreen = () => {
           autoCapitalize="none"
         />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor={theme.colors.textSecondary}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            placeholderTextColor={theme.colors.textSecondary}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword}
+          />
+          <Ionicons
+            name={showPassword ? "eye-off" : "eye"}
+            size={24}
+            color={theme.colors.textSecondary}
+            style={styles.eyeIcon}
+            onPress={() => setShowPassword(!showPassword)}
+          />
+        </View>
 
         <PrimaryButton handlePress={handleLogin} text="Login" />
       </View>
@@ -96,5 +124,15 @@ const styles = StyleSheet.create({
     marginBottom: theme.margin.medium,
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.1)",
+  },
+  passwordContainer: {
+    position: "relative",
+    justifyContent: "center",
+  },
+
+  eyeIcon: {
+    position: "absolute",
+    right: 10,
+    top: 10,
   },
 });
