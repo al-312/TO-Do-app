@@ -1,6 +1,6 @@
+import { theme } from "@/constants/theme";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { style } from "./style";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface SecondaryButtonProps {
   handlePress: () => void;
@@ -24,3 +24,23 @@ function SecondaryButton({ handlePress, text }: SecondaryButtonProps) {
 }
 
 export default SecondaryButton;
+
+const style = StyleSheet.create({
+  container: {
+    width: "100%",
+  },
+  button: {
+    width: "100%",
+    height: 50,
+    borderWidth: 2,
+    borderColor: theme.colors.accent,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: theme.borderRadius.large,
+  },
+  text: {
+    color: theme.colors.accent,
+    fontSize: theme.fontSizes.secondary,
+    fontWeight: 600,
+  },
+});

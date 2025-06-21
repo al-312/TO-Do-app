@@ -1,27 +1,44 @@
 export const theme = {
   colors: {
-    primary: "#3B4A6B", // Slate Blue for background
-    accent: "#26A69A", // Teal Blue for buttons and highlights
-    secondary: "#B0BEC5", // Warm Gray for accents
-    textPrimary: "#F5F6F5", // Off-White for primary text
-    textSecondary: "#CFD8DC", // Mid-Gray for secondary text
+    primary: "#2A2E43", // Main background color
+    headerBackground: "rgba(255, 255, 255, 0.1)", // Subtle header background
+    accent: "#FF6B6B", // Vibrant color for buttons and highlights
+    secondary: "#B0BEC5", // Warm gray for secondary elements
+    textPrimary: "#FFFFFF", // Primary text color
+    textSecondary: "#CFD8DC", // Secondary text for less emphasis
+    cardBackground: "rgba(255, 255, 255, 0.15)", // Semi-transparent card background
+    buttonBackground: "#FF6B6B", // Consistent with accent for buttons
   },
-  textSizes: {
-    header: 28, // Larger for professional clarity
-    title: 20,
-    secondary: 16,
+  fontSizes: {
+    header: 24, // Main header (e.g., "My Tasks")
+    title: 20, // Task titles
+    body: 16, // Standard text
+    secondary: 14, // Smaller text for less emphasis
   },
-  borderRadius: 8, // Less rounded for a polished look
+  borderRadius: {
+    small: 8, // For buttons and smaller elements
+    medium: 15, // For cards
+    large: 20, // For larger containers
+  },
   shadow: {
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.15, // Softer shadow
-    shadowRadius: 3,
-    elevation: 2, // Subtle elevation for Android
+    ios: {
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+    },
+    android: {
+      elevation: 3,
+    },
   },
   padding: {
-    small: 12, // Slightly larger for spaciousness
-    medium: 18,
-    large: 24,
+    small: 12, // For tighter spaces
+    medium: 18, // Standard padding
+    large: 24, // For larger containers
+  },
+  margin: {
+    small: 10,
+    medium: 15,
+    large: 20,
   },
 };

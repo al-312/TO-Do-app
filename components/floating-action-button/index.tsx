@@ -1,41 +1,41 @@
 import { theme } from "@/constants/theme";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
-interface PrimaryButtonProps {
+interface FloatingActionButtonProps {
   handlePress: () => void;
-  text: string;
 }
 
-function PrimaryButton({ handlePress, text }: PrimaryButtonProps) {
+function FloatingActionButton({ handlePress }: FloatingActionButtonProps) {
   return (
     <>
-      <View style={primaryButtonStyle.container}>
+      <View>
         <TouchableOpacity
           activeOpacity={0.8}
-          style={primaryButtonStyle.button}
+          style={style.button}
           onPress={handlePress}
         >
-          <Text style={primaryButtonStyle.text}>{text}</Text>
+          <FontAwesome6 name="add" size={24} color="white" />
         </TouchableOpacity>
       </View>
     </>
   );
 }
 
-export default PrimaryButton;
+export default FloatingActionButton;
 
-const primaryButtonStyle = StyleSheet.create({
-  container: {
-    width: "100%",
-  },
+const style = StyleSheet.create({
   button: {
-    width: "100%",
+    position: "absolute",
+    bottom: 20,
+    right: 10,
+    width: 50,
     height: 50,
     backgroundColor: theme.colors.accent,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: theme.borderRadius.large,
+    borderRadius: "100%",
   },
   text: {
     color: theme.colors.textPrimary,
