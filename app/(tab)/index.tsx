@@ -1,9 +1,13 @@
 import AddTaskForm from "@/components/add-task-form";
 import FloatingActionButton from "@/components/floating-action-button";
 import TaskCard from "@/components/task-card";
+import { db } from "@/config/firebase";
 import { theme } from "@/constants/theme";
+import { USER_ID } from "@/constants/variables";
 import { DataType, STATUS } from "@/type/home";
-import { useState } from "react";
+import { getData } from "@/utils/storage-manager";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import {
   FlatList,
   Platform,
@@ -21,6 +25,30 @@ export const data: DataType[] = [
 
 function Home() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [taskData, setTaskData] = useState<DataType[]>([]);
+
+  const getUserId = async () => {
+    const response = await getData<string>(USER_ID);
+    setUserId(response);
+  };
+
+  const getTaskData = async () => {
+    const q = query(collection(db, "tasks"), where("user", "==", userId));
+    const querySnapshot = await getDocs(q);
+    const data = querySnapshot.docs.map((doc) => doc.data());
+    setTaskData(data as DataType[]);
+  };
+
+  useEffect(() => {
+    console.log("hi");
+
+    if (userId) getTaskData();
+  }, [userId]);
+
+  useEffect(() => {
+    getUserId();
+  }, []);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -31,7 +59,7 @@ function Home() {
         <Text style={styles.title}>My Tasks</Text>
       </View>
       <FlatList
-        data={data}
+        data={taskData}
         renderItem={({ item, index }) => <TaskCard item={item} index={index} />}
         keyExtractor={(item) => String(item.id)}
         contentContainerStyle={styles.listContent}
