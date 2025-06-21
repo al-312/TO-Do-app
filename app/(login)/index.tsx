@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.cardBackground,
     padding: theme.padding.large,
     borderRadius: theme.borderRadius.large,
-    ...theme.shadow.android,
   },
   header: {
     fontSize: theme.fontSizes.header,

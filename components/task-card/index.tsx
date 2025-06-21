@@ -1,8 +1,11 @@
+import { data } from "@/app/(tab)";
 import { theme } from "@/constants/theme";
 import { DataType, STATUS } from "@/type/home";
 import { Ionicons } from "@expo/vector-icons";
 import {
+  Alert,
   Platform,
+  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -31,19 +34,49 @@ const TaskCard = ({ index, item }: TaskCardProps) => {
       color = "red";
       break;
   }
+
+  const handleStatusChange = () => {
+    const dataIndex = data.findIndex((value) => value.id === item.id);
+    const nextStatus =
+      data[dataIndex].status === STATUS.TODO
+        ? STATUS.INPROGRESS
+        : data[dataIndex].status === STATUS.INPROGRESS
+        ? STATUS.COMPLETE
+        : null;
+
+    if (nextStatus)
+      Alert.alert("Title", `change status to ${nextStatus}` as string, [
+        { text: "cancel", style: "cancel" },
+        {
+          text: "OK",
+          onPress: () => {
+            data[index] = { ...data[index], status: nextStatus };
+          },
+        },
+      ]);
+
+    // console.log(data);
+  };
+
   return (
     <>
-      <Animated.View
-        entering={FadeInDown.delay(index * 100).springify()}
-        style={styles.taskCard}
-      >
-        <View style={styles.taskContent}>
-          <Text style={styles.taskText}>{item.name}</Text>
-          <TouchableOpacity style={styles.checkButton}>
-            <Ionicons name="checkmark-circle-outline" size={24} color={color} />
-          </TouchableOpacity>
-        </View>
-      </Animated.View>
+      <Pressable onPress={handleStatusChange}>
+        <Animated.View
+          entering={FadeInDown.delay(index * 100).springify()}
+          style={styles.taskCard}
+        >
+          <View style={styles.taskContent}>
+            <Text style={styles.taskText}>{item.name}</Text>
+            <TouchableOpacity style={styles.checkButton}>
+              <Ionicons
+                name="checkmark-circle-outline"
+                size={24}
+                color={color}
+              />
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
+      </Pressable>
     </>
   );
 };

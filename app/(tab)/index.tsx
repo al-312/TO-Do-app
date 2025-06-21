@@ -1,7 +1,9 @@
+import AddTaskForm from "@/components/add-task-form";
 import FloatingActionButton from "@/components/floating-action-button";
 import TaskCard from "@/components/task-card";
 import { theme } from "@/constants/theme";
-import { STATUS } from "@/type/home";
+import { DataType, STATUS } from "@/type/home";
+import { useState } from "react";
 import {
   FlatList,
   Platform,
@@ -11,13 +13,18 @@ import {
   View,
 } from "react-native";
 
-const data = [
+export const data: DataType[] = [
   { id: 1, name: "hi", status: STATUS.TODO },
   { id: 2, name: "hello", status: STATUS.INPROGRESS },
   { id: 3, name: "how r u", status: STATUS.COMPLETE },
 ];
 
 function Home() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.header}>
@@ -34,7 +41,8 @@ function Home() {
         windowSize={10}
       />
 
-      <FloatingActionButton handlePress={() => console.log("first")} />
+      <FloatingActionButton handlePress={() => setIsOpen(true)} />
+      <AddTaskForm handleClose={handleClose} open={isOpen} />
     </SafeAreaView>
   );
 }
