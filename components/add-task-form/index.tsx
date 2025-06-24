@@ -12,9 +12,10 @@ import PrimaryButton from "../primaty-button";
 interface AddTaskFormProps {
   handleClose: () => void;
   open: boolean;
+  refetchData: () => void;
 }
 
-const AddTaskForm = ({ handleClose, open }: AddTaskFormProps) => {
+const AddTaskForm = ({ handleClose, open, refetchData }: AddTaskFormProps) => {
   const [taskName, setTaskName] = useState<string>("");
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -39,6 +40,7 @@ const AddTaskForm = ({ handleClose, open }: AddTaskFormProps) => {
       });
       setTaskName("");
       handleClose();
+      refetchData();
     }
   };
 

@@ -1,9 +1,9 @@
-import { data } from "@/app/(tab)";
+import { db } from "@/config/firebase";
 import { theme } from "@/constants/theme";
 import { DataType, STATUS } from "@/type/home";
 import { Ionicons } from "@expo/vector-icons";
+import { doc, updateDoc } from "firebase/firestore";
 import {
-  Alert,
   Platform,
   Pressable,
   StyleSheet,
@@ -16,9 +16,10 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 interface TaskCardProps {
   index: number;
   item: DataType;
+  refetchData: () => void;
 }
 
-const TaskCard = ({ index, item }: TaskCardProps) => {
+const TaskCard = ({ index, item, refetchData }: TaskCardProps) => {
   let color;
   switch (item.status) {
     case STATUS.TODO:
@@ -35,27 +36,19 @@ const TaskCard = ({ index, item }: TaskCardProps) => {
       break;
   }
 
-  const handleStatusChange = () => {
-    const dataIndex = data.findIndex((value) => value.id === item.id);
+  const handleStatusChange = async () => {
+    const taskRef = doc(db, "tasks", item.id.toString());
     const nextStatus =
-      data[dataIndex].status === STATUS.TODO
+      item.status === STATUS.TODO
         ? STATUS.INPROGRESS
-        : data[dataIndex].status === STATUS.INPROGRESS
+        : item.status === STATUS.INPROGRESS
         ? STATUS.COMPLETE
         : null;
-
-    if (nextStatus)
-      Alert.alert("Title", `change status to ${nextStatus}` as string, [
-        { text: "cancel", style: "cancel" },
-        {
-          text: "OK",
-          onPress: () => {
-            data[index] = { ...data[index], status: nextStatus };
-          },
-        },
-      ]);
-
-    // console.log(data);
+    if (nextStatus) {
+      const newData = { ...item, status: nextStatus };
+      await updateDoc(taskRef, newData);
+      refetchData();
+    }
   };
 
   return (

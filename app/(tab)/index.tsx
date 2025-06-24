@@ -7,10 +7,11 @@ import { USER_ID } from "@/constants/variables";
 import { DataType, STATUS } from "@/type/home";
 import { getData } from "@/utils/storage-manager";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   FlatList,
   Platform,
+  RefreshControl,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -27,18 +28,21 @@ function Home() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [taskData, setTaskData] = useState<DataType[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const getUserId = async () => {
     const response = await getData<string>(USER_ID);
     setUserId(response);
   };
 
-  const getTaskData = async () => {
+  const getTaskData = useCallback(async () => {
     const q = query(collection(db, "tasks"), where("user", "==", userId));
     const querySnapshot = await getDocs(q);
+
     const data = querySnapshot.docs.map((doc) => doc.data());
+
     setTaskData(data as DataType[]);
-  };
+  }, [userId]);
 
   useEffect(() => {
     console.log("hi");
@@ -60,7 +64,12 @@ function Home() {
       </View>
       <FlatList
         data={taskData}
-        renderItem={({ item, index }) => <TaskCard item={item} index={index} />}
+        renderItem={({ item, index }) => (
+          <TaskCard item={item} index={index} refetchData={getTaskData} />
+        )}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={getTaskData} />
+        }
         keyExtractor={(item) => String(item.id)}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
@@ -70,7 +79,11 @@ function Home() {
       />
 
       <FloatingActionButton handlePress={() => setIsOpen(true)} />
-      <AddTaskForm handleClose={handleClose} open={isOpen} />
+      <AddTaskForm
+        handleClose={handleClose}
+        open={isOpen}
+        refetchData={getTaskData}
+      />
     </SafeAreaView>
   );
 }
