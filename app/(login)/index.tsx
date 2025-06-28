@@ -1,6 +1,5 @@
 import PrimaryButton from "@/components/primaty-button";
 import { auth } from "@/config/firebase";
-import { theme } from "@/constants/theme";
 import { USER_ID } from "@/constants/variables";
 import { storeData } from "@/utils/storage-manager";
 import { Ionicons } from "@expo/vector-icons";
@@ -14,6 +13,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -24,19 +24,14 @@ const LoginScreen = () => {
   const router = useRouter();
 
   const handleLogin = () => {
-    console.log(email, password);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         storeData(USER_ID, user.uid);
-
         router.replace("/(tab)");
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        console.error(errorCode, errorMessage);
+        console.error("Login failed:", error.code, error.message);
       });
   };
 
@@ -45,10 +40,7 @@ const LoginScreen = () => {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={theme.colors.primary}
-      />
+      <StatusBar barStyle="light-content" backgroundColor="#6366F1" />
 
       <View style={styles.card}>
         <Text style={styles.header}>Welcome Back</Text>
@@ -57,7 +49,7 @@ const LoginScreen = () => {
         <TextInput
           style={styles.input}
           placeholder="Email"
-          placeholderTextColor={theme.colors.textSecondary}
+          placeholderTextColor="#9CA3AF"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
@@ -68,18 +60,21 @@ const LoginScreen = () => {
           <TextInput
             style={styles.input}
             placeholder="Password"
-            placeholderTextColor={theme.colors.textSecondary}
+            placeholderTextColor="#9CA3AF"
             value={password}
             onChangeText={setPassword}
             secureTextEntry={!showPassword}
           />
-          <Ionicons
-            name={showPassword ? "eye-off" : "eye"}
-            size={24}
-            color={theme.colors.textSecondary}
-            style={styles.eyeIcon}
+          <TouchableOpacity
             onPress={() => setShowPassword(!showPassword)}
-          />
+            style={styles.eyeIcon}
+          >
+            <Ionicons
+              name={showPassword ? "eye-off" : "eye"}
+              size={20}
+              color="#9CA3AF"
+            />
+          </TouchableOpacity>
         </View>
 
         <PrimaryButton handlePress={handleLogin} text="Login" />
@@ -93,46 +88,50 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.primary,
+    backgroundColor: "#273F4F",
     justifyContent: "center",
-    paddingHorizontal: theme.padding.large,
+    paddingHorizontal: 24,
   },
   card: {
-    backgroundColor: theme.colors.cardBackground,
-    padding: theme.padding.large,
-    borderRadius: theme.borderRadius.large,
+    backgroundColor: "#FFFFFF",
+    padding: 24,
+    borderRadius: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 4,
   },
   header: {
-    fontSize: theme.fontSizes.header,
-    color: theme.colors.textPrimary,
-    marginBottom: theme.margin.small,
-    fontWeight: "bold",
+    fontSize: 24,
+    fontWeight: "700",
+    color: "#1F2937",
+    marginBottom: 8,
     textAlign: "center",
   },
   subheader: {
-    fontSize: theme.fontSizes.secondary,
-    color: theme.colors.textSecondary,
-    marginBottom: theme.margin.large,
+    fontSize: 16,
+    color: "#6B7280",
+    marginBottom: 20,
     textAlign: "center",
   },
   input: {
-    backgroundColor: "rgba(255,255,255,0.05)",
-    borderRadius: theme.borderRadius.small,
-    padding: theme.padding.small,
-    color: theme.colors.textPrimary,
-    fontSize: theme.fontSizes.body,
-    marginBottom: theme.margin.medium,
+    backgroundColor: "#F3F4F6",
+    borderRadius: 12,
+    padding: 12,
+    color: "#1F2937",
+    fontSize: 16,
+    marginBottom: 16,
     borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.1)",
+    borderColor: "#E5E7EB",
   },
   passwordContainer: {
     position: "relative",
     justifyContent: "center",
   },
-
   eyeIcon: {
     position: "absolute",
-    right: 10,
-    top: 10,
+    right: 12,
+    top: 14,
   },
 });
