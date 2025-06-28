@@ -18,8 +18,8 @@ import {
 } from "react-native";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState<string>("test@mail.com");
-  const [password, setPassword] = useState<string>("test@123");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const router = useRouter();

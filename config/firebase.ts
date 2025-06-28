@@ -1,10 +1,11 @@
+import { GOOGLE_API_KEY } from "@/constants/variables";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { initializeApp } from "firebase/app";
 import { getReactNativePersistence, initializeAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyADAJ0BSPIzo3OtQIzdzAbcCRN7XbUNqK8",
+  apiKey: GOOGLE_API_KEY,
   authDomain: "my-task-976b6.firebaseapp.com",
   projectId: "my-task-976b6",
   storageBucket: "my-task-976b6.appspot.com",
