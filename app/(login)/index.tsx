@@ -20,10 +20,12 @@ import {
 const LoginScreen = () => {
   const [email, setEmail] = useState<string>("test@mail.com");
   const [password, setPassword] = useState<string>("test@123");
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const router = useRouter();
 
   const handleLogin = () => {
+    setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -32,6 +34,9 @@ const LoginScreen = () => {
       })
       .catch((error) => {
         console.error("Login failed:", error.code, error.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -77,7 +82,12 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <PrimaryButton handlePress={handleLogin} text="Login" />
+        <PrimaryButton
+          handlePress={handleLogin}
+          text="Login"
+          disabled={isLoading}
+          loading={isLoading}
+        />
       </View>
     </KeyboardAvoidingView>
   );

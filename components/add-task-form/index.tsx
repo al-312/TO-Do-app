@@ -17,6 +17,7 @@ interface AddTaskFormProps {
 
 const AddTaskForm = ({ handleClose, open, refetchData }: AddTaskFormProps) => {
   const [taskName, setTaskName] = useState<string>("");
+  const [isCreating, setIsCreating] = useState<boolean>(false);
   const [userId, setUserId] = useState<string | null>(null);
 
   const getUserId = async () => {
@@ -31,6 +32,7 @@ const AddTaskForm = ({ handleClose, open, refetchData }: AddTaskFormProps) => {
     }
 
     if (userId) {
+      setIsCreating(true);
       const newDocRef = doc(collection(db, "tasks"));
       await setDoc(doc(db, "tasks", newDocRef.id), {
         id: newDocRef.id,
@@ -42,6 +44,7 @@ const AddTaskForm = ({ handleClose, open, refetchData }: AddTaskFormProps) => {
       handleClose();
       refetchData();
     }
+    setIsCreating(false);
   };
 
   useEffect(() => {
@@ -58,7 +61,12 @@ const AddTaskForm = ({ handleClose, open, refetchData }: AddTaskFormProps) => {
           style={styles.input}
           placeholderTextColor={theme.colors.textSecondary}
         />
-        <PrimaryButton handlePress={handleSubmit} text="Submit" />
+        <PrimaryButton
+          handlePress={handleSubmit}
+          text="Submit"
+          disabled={isCreating}
+          loading={isCreating}
+        />
       </View>
     </CustomModel>
   );
