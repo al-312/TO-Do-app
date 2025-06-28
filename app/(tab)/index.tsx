@@ -225,9 +225,6 @@ function Home() {
               <Text style={styles.greeting}>{getCurrentGreeting()}</Text>
               <Text style={styles.title}>My Tasks</Text>
             </View>
-            <View style={styles.userAvatar}>
-              <Text style={styles.avatarText}>👤</Text>
-            </View>
           </Animated.View>
         </View>
 
@@ -335,19 +332,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "700",
     letterSpacing: 0.5,
-  },
-  userAvatar: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 2,
-    borderColor: "rgba(255, 255, 255, 0.3)",
-  },
-  avatarText: {
-    fontSize: 20,
   },
   contentContainer: {
     flex: 1,
